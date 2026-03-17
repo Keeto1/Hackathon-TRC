@@ -12,6 +12,46 @@ import { getLanguage, setLanguage, t, Language } from '@/lib/i18n';
 import { getCrisisResources } from '@/lib/crisisResources';
 
 export default function SettingsPage() {
+    // Export chats handler
+    const handleExportChats = () => {
+      const conversations = localStorage.getItem('campus_ai_buddy_conversations');
+      const messages = localStorage.getItem('campus_ai_buddy_messages');
+      const moods = localStorage.getItem('campus_ai_buddy_mood_entries');
+      const crisis = localStorage.getItem('campus_ai_buddy_crisis_alerts');
+      const data = {
+        conversations: conversations ? JSON.parse(conversations) : {},
+        messages: messages ? JSON.parse(messages) : {},
+        moods: moods ? JSON.parse(moods) : {},
+        crisis: crisis ? JSON.parse(crisis) : {},
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'campus-ai-buddy-chats.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    // Import chats handler
+    const handleImportChats = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target?.result as string);
+          if (data.conversations) localStorage.setItem('campus_ai_buddy_conversations', JSON.stringify(data.conversations));
+          if (data.messages) localStorage.setItem('campus_ai_buddy_messages', JSON.stringify(data.messages));
+          if (data.moods) localStorage.setItem('campus_ai_buddy_mood_entries', JSON.stringify(data.moods));
+          if (data.crisis) localStorage.setItem('campus_ai_buddy_crisis_alerts', JSON.stringify(data.crisis));
+          alert('Chats imported successfully!');
+        } catch {
+          alert('Failed to import chats. Invalid file format.');
+        }
+      };
+      reader.readAsText(file);
+    };
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -229,10 +269,28 @@ export default function SettingsPage() {
 
         <Button
           onClick={() => router.push('/chat')}
-          className="w-full"
+          className="w-full mb-2"
         >
           Back to Chat
         </Button>
+
+        {/* Export/Import Chats */}
+        <div className="flex gap-2 w-full">
+          <Button variant="outline" className="flex-1" onClick={handleExportChats}>
+            Export Chats
+          </Button>
+          <label className="flex-1">
+            <input
+              type="file"
+              accept="application/json"
+              style={{ display: 'none' }}
+              onChange={handleImportChats}
+            />
+            <Button variant="outline" className="w-full" asChild>
+              <span>Import Chats</span>
+            </Button>
+          </label>
+        </div>
       </div>
     </div>
   );
