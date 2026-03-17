@@ -10,11 +10,10 @@ import { FieldGroup, Field, FieldLabel } from '@/components/ui/field';
 import { ArrowLeft } from 'lucide-react';
 import { getLanguage, setLanguage, t, Language } from '@/lib/i18n';
 import { getCrisisResources } from '@/lib/crisisResources';
+import InstallPWAButton from '@/components/ui/InstallPWAButton';
 
 export default function SettingsPage() {
-      // ...existing code...
-      // Import InstallPWAButton
-      import InstallPWAButton from '@/components/ui/InstallPWAButton';
+  // ...existing code...
     // Export chats handler
     const handleExportChats = () => {
       const conversations = localStorage.getItem('campus_ai_buddy_conversations');
