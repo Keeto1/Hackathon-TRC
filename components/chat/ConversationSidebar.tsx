@@ -57,19 +57,6 @@ export default function ConversationSidebar({
           >
             <Settings className="w-5 h-5" />
           </button>
-          {onDeleteConversation && activeConversationId && (
-            <button
-              onClick={() => {
-                if (window.confirm('Delete this conversation?')) {
-                  onDeleteConversation(activeConversationId);
-                }
-              }}
-              className="p-1 rounded hover:bg-destructive/20 text-destructive"
-              title="Delete current chat"
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
-          )}
           <button onClick={onClose} className="md:hidden">
             <X className="w-5 h-5" />
           </button>
@@ -102,21 +89,33 @@ export default function ConversationSidebar({
           <p className="text-sm text-sidebar-foreground/60 p-3">No conversations yet</p>
         ) : (
           conversations.map((conversation) => (
-            <button
+            <div
               key={conversation.id}
-              onClick={() => {
-                onSelectConversation(conversation.id);
-                onClose?.();
-              }}
-              className={`w-full text-left px-3 py-2 rounded-lg transition-colors text-sm truncate ${
+              className={`flex items-center group w-full px-3 py-2 rounded-lg transition-colors text-sm truncate cursor-pointer ${
                 activeConversationId === conversation.id
                   ? 'bg-sidebar-accent text-sidebar-accent-foreground'
                   : 'hover:bg-sidebar-accent/50'
               }`}
               title={conversation.title}
+              onClick={() => {
+                onSelectConversation(conversation.id);
+                onClose?.();
+              }}
             >
-              {conversation.title}
-            </button>
+              <span className="flex-1 truncate">{conversation.title}</span>
+              {onDeleteConversation && (
+                <button
+                  onClick={e => {
+                    e.stopPropagation();
+                    onDeleteConversation(conversation.id);
+                  }}
+                  className="ml-2 p-1 rounded hover:bg-destructive/20 text-destructive opacity-70 group-hover:opacity-100"
+                  title="Delete this chat"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           ))
         )}
       </div>
