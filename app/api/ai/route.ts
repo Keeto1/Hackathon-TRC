@@ -37,8 +37,9 @@ export async function POST(req: NextRequest) {
 
   const apiKey = process.env.OPENROUTER_API_KEY || process.env.NEXT_PUBLIC_OPENROUTER_API_KEY;
   if (!apiKey) {
+    console.error('Missing OPENROUTER_API_KEY');
     return NextResponse.json(
-      { error: 'Missing OPENROUTER_API_KEY environment variable.' },
+      { error: 'AI service unavailable. Please check API configuration.' },
       { status: 500 }
     );
   }
@@ -111,11 +112,6 @@ export async function POST(req: NextRequest) {
         await new Promise((resolve) => setTimeout(resolve, delayMs));
         continue;
       }
-
-      return NextResponse.json(
-        { error: data?.error || 'OpenRouter API error' },
-        { status: response.status }
-      );
     }
 
     return NextResponse.json(

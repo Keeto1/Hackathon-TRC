@@ -45,49 +45,34 @@ Campus AI Buddy is a mental health support chatbot app built with Next.js and Re
 
 ## Configuration
 
-### Optional: OpenRouter API Integration (Free LLMs)
+### Required: API Keys Setup
 
-To enable real AI responses using free LLMs via OpenRouter, follow these steps:
+The app uses real AI integration via OpenRouter and DeepSeek. You must configure API keys:
 
-1. **Get your FREE API key:**
-   - Go to https://openrouter.ai
-   - Click "Sign Up" and create a free account
-   - Navigate to your API Keys section
-   - Create a new API key (no credit card required for free models)
-
-2. **Add to environment variables:**
-   Create a `.env.local` file in the project root:
+1. **OpenRouter API Key** (for AI chat responses):
+   - Sign up at https://openrouter.ai
+   - Get your free API key
+   - Add to `.env.local`:
    ```
-   OPENROUTER_API_KEY=your_openrouter_api_key_here
-   # Optional: specify a model (defaults to OpenRouter auto-routing)
-   OPENROUTER_MODEL=openrouter/auto
-
-   # Optional: how many tokens the model can return (higher = longer replies)
-   # Best to keep this under 4096 for free models to stay within rate limits.
-   OPENROUTER_MAX_TOKENS=2048
-
-   # Optional: limit the number of messages sent to the AI (prevents huge payloads)
-   OPENROUTER_MAX_MESSAGES=25
-
-   # Optional: limit the length of AI replies (word count)
-   OPENROUTER_MAX_WORDS=100
+   OPENROUTER_API_KEY=your_key_here
    ```
 
-   > Note: The app routes AI calls through a server-side endpoint, so this key should not be exposed in the browser. If you only have `NEXT_PUBLIC_OPENROUTER_API_KEY` configured, it will still work (for now), but it is not recommended because the key becomes visible to users.
-
-3. **Restart development server:**
-   ```bash
-   npm run dev
+2. **DeepSeek API Key** (for conversation titles):
+   - Get API key from DeepSeek
+   - Add to `.env.local`:
+   ```
+   DEEPSEEK_API_KEY=your_key_here
    ```
 
-4. **Done!** The app will automatically use the free Llama 2 model on OpenRouter. If the API key is not set, AI responses will return an error message instead of mock replies.
+### Optional Configuration
+```
+OPENROUTER_MODEL=openrouter/auto  # Default auto-routing
+OPENROUTER_MAX_TOKENS=2048        # Response length limit
+OPENROUTER_MAX_MESSAGES=25        # Context window
+OPENROUTER_MAX_WORDS=100          # Word limit per response
+```
 
-### Available Free Models on OpenRouter:
-- `meta-llama/llama-2-7b-chat:free` (Default - Llama 2)
-- `mistralai/mistral-7b-instruct:free` (Mistral)
-- `meta-llama/llama-3-8b-instruct:free` (Llama 3)
-
-To use a different model, edit `lib/ai.ts` and change the `model` parameter in the fetch request.
+> **Note**: Without API keys, the app will show error messages instead of AI responses.
 
 ## Project Structure
 

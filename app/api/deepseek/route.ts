@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const DEFAULT_DEEPSEEK_URL = 'https://api.deepseek.com/v1/llm';
+const DEFAULT_DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
 
 export async function GET() {
   return NextResponse.json(
@@ -31,7 +31,13 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        prompt: `Create a concise chat title (5-8 words) describing this user problem: "${prompt}"`,
+        model: 'deepseek-chat',
+        messages: [
+          {
+            role: 'user',
+            content: `Create a concise chat title (5-8 words) describing this user problem: "${prompt}"`,
+          },
+        ],
         max_tokens: 20,
         temperature: 0.5,
       }),
@@ -42,7 +48,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: data?.error || 'Deepseek API error' }, { status: response.status });
     }
 
-    const title = typeof data?.text === 'string' ? data.text.trim() : '';
+    const title = typeof data?.choices?.[0]?.message?.content === 'string' ? data.choices[0].message.content.trim() : '';
     if (!title) {
       return NextResponse.json({ error: 'Deepseek returned an unexpected response.' }, { status: 500 });
     }
