@@ -1,165 +1,99 @@
+
 # Campus AI Buddy - Mental Health Support for Students
 
 ## TRC Hackathon Submission: AI for Campus Life
 
-Campus AI Buddy is a production-ready mental health support chatbot app built with Next.js and React, designed specifically for university students. This app addresses the growing need for accessible, stigma-free mental wellness support in academic environments.
+Campus AI Buddy is a mental health support chatbot app designed for university students. It provides accessible, stigma-free mental wellness support, available anytime and anywhere.
+
 
 ### 🎯 Problem Statement
-University students face escalating levels of academic stress, anxiety, and burnout. Traditional mental health services often have long wait times, cultural barriers, and limited accessibility. Campus AI Buddy provides immediate, 24/7 support with culturally-sensitive AI conversations, mood tracking, and crisis detection.
+University students face high levels of stress, anxiety, and burnout. Traditional mental health services can be hard to access. Campus AI Buddy offers immediate, 24/7 support with culturally-sensitive AI conversations, mood tracking, and crisis detection.
+
 
 ### 💡 Solution
-- **AI-Powered Chat**: Real-time conversations with empathetic AI using OpenRouter API
+- **AI-Powered Chat**: Real-time conversations with an empathetic AI
 - **Mood Tracking**: Daily mood logging with insights and patterns
 - **Crisis Detection**: Automatic identification of concerning keywords with localized resources
 - **Conversation History**: Persistent chat history for continuity
 - **Mobile-First Design**: Fully responsive for on-the-go access
 - **Dark Mode**: Comfortable usage in any lighting
 
-## ✅ Features Implemented
 
-- **🔐 User Authentication**: Secure sign up & login with email/password
-- **🤖 AI Chat Support**: Contextual conversations using advanced LLMs (OpenRouter + DeepSeek)
-- **📊 Mood Tracking**: Log mood levels with intensity and optional notes
-- **🚨 Crisis Detection**: Real-time monitoring with Tunisian crisis resources
-- **💬 Conversation History**: Unlimited chat persistence with smart titles
-- **📱 Mobile-First Design**: Optimized for phones, tablets, and desktop
-- **🌙 Dark Mode**: Built-in theme switching
-- **⚙️ Settings**: User profile and preferences management
+## ✅ Key Features
 
-## 🚀 Quick Start
+- **User Authentication**: Secure sign up & login
+- **AI Chat Support**: Contextual, empathetic conversations
+- **Mood Tracking**: Log mood levels with intensity and optional notes
+- **Crisis Detection**: Real-time monitoring with localized resources
+- **Conversation History**: Unlimited chat persistence with smart titles
+- **Mobile-First Design**: Optimized for phones, tablets, and desktop
+- **Dark Mode**: Built-in theme switching
+- **Settings**: User profile and preferences management
 
-### Prerequisites
-- Node.js 18+ installed
-- npm package manager
 
-### Installation
+## 🚀 How to Use Campus AI Buddy
 
-1. **Clone and install:**
-   ```bash
-   git clone <your-repo-url>
-   cd campus-ai-buddy
-   npm install
-   ```
+1. **Create an Account**
+   - Sign up securely to get started.
 
-2. **Configure environment:**
-   Copy `.env.example` to `.env.local` and add your API keys:
-   ```bash
-   OPENROUTER_API_KEY=your_openrouter_key
-   DEEPSEEK_API_KEY=your_deepseek_key
-   ```
+2. **Start Chatting**
+   - The AI Buddy responds empathetically to your messages.
+   - Conversations are automatically titled for easy reference.
+   - You can talk about stress, anxiety, academic concerns, or anything on your mind.
 
-3. **Run development server:**
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000)
+3. **Track Your Mood**
+   - Log your mood daily with a simple, mobile-friendly interface.
+   - Add notes to describe your feelings.
+   - View your mood history and patterns over time.
 
-### Production Build
-```bash
-npm run build
-npm start
-```
+4. **Access Crisis Resources**
+   - If you mention crisis keywords, the app will suggest local resources for immediate help.
 
-## 🛠️ Tech Stack
+5. **Personalize Your Experience**
+   - Switch between light and dark mode.
+   - Manage your profile and preferences in the settings.
 
-- **Frontend**: Next.js 16, React 19, TypeScript
-- **Styling**: Tailwind CSS v4, shadcn/ui components
-- **AI Integration**: OpenRouter API (multiple LLMs), DeepSeek API
-- **State Management**: React hooks with localStorage persistence
-- **Deployment**: Vercel-ready (static + serverless functions)
 
-## 📱 Usage Guide
+## 🌟 Why Use Campus AI Buddy?
 
-### 1. Create Account
-- Visit the app and click "Sign up"
-- Enter your details to create a secure account
+- **Instant, stigma-free support** for students, anytime
+- **Personalized mood tracking** and insights
+- **Crisis detection** with immediate access to local resources
+- **Mobile-first, accessible design** for all devices
+- **Privacy-first**: All data is stored locally in your browser
 
-### 2. Start Chatting
-- AI Buddy responds empathetically to your messages
-- Conversations are automatically titled using AI
-- Try mentioning stress, anxiety, or academic concerns
 
-### 3. Track Your Mood
-- Click "Log Mood" to record your current state
-- View mood history and patterns in settings
+## 📱 Who Is It For?
 
-### 4. Access Resources
-- Crisis keywords trigger automatic resource suggestions
-- Localized support for Tunisian students
+Campus AI Buddy is designed for university students who want:
+- Immediate, private mental health support
+- To track and understand their mood patterns
+- To access crisis resources quickly and discreetly
 
-## 🌐 Deployment
 
-### Vercel (Recommended)
-1. Push code to GitHub
-2. Connect repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically
+## 🌐 Accessibility & Privacy
 
-### Manual Deployment
-```bash
-npm run build
-npm start
-```
+- Works offline using your browser
+- No account or API key required to start using (uses mock responses by default)
+- All user data is stored locally in your browser
 
-## 🤝 Contributing
 
-This app was built for the TRC Hackathon focusing on "AI for Campus Life". The codebase is production-ready with proper error handling, responsive design, and scalable architecture.
+## 🤝 About This Project
+
+Campus AI Buddy was built for the TRC Hackathon, focusing on "AI for Campus Life." It is designed to be robust, user-friendly, and ready for real-world use.
+
 
 ## 📄 License
 
-MIT License - Free to use and modify for educational purposes.
+MIT License - Free to use for educational purposes.
 
-When ready, add your Claude API key to enable real AI responses:
 
-1. Get your API key from https://console.anthropic.com
-2. Create a `.env.local` file in the project root:
-   ```
-   ANTHROPIC_API_KEY=your_key_here
-   ```
-3. The chat will automatically use real Claude responses instead of mocks
+## ℹ️ Support Notes
 
-## Data Storage
-
-Currently uses **localStorage** for mock data:
-- User accounts
-- Conversations and messages
-- Mood entries
-- Crisis alerts
-
-To upgrade to real Supabase storage later, replace localStorage calls in:
-- `lib/auth.ts` - Replace signup/login with Supabase Auth
-- `lib/db.ts` - Replace localStorage with Supabase queries
-
-## Customization
-
-### Colors & Branding
-Edit design tokens in `app/globals.css` - uses OKLch color space for better color harmony
-
-### Crisis Keywords
-Edit the `CRISIS_KEYWORDS` array in `lib/db.ts` to add/remove detection keywords
-
-### AI Responses
-Edit mock responses in `lib/ai.ts` - customize the supportive messages
-
-## File Structure
-```
-app/
-  ├── auth/page.tsx         # Auth page
-  ├── chat/
-  │   ├── page.tsx          # Main chat page
-  │   └── settings/page.tsx  # User settings
-  └── layout.tsx            # Root layout
-components/
-  ├── auth/                 # Auth components
-  ├── chat/                 # Chat feature components
-  └── ui/                   # shadcn components
-lib/
-  ├── auth.ts               # Auth utilities
-  ├── db.ts                 # Mock database
-  ├── ai.ts                 # AI service
-  ├── uuid.ts               # Browser-compatible UUID generation
-  └── types.ts              # TypeScript types
-```
+- The app works offline using your browser
+- No API key required to start using (mock responses by default)
+- All user data is stored locally in your browser
+- Free models are used for AI chat (no credit card needed)
 
 ## Support Notes
 
@@ -168,5 +102,6 @@ lib/
 - Add your free OpenRouter API key anytime to switch to real LLM responses
 - All user data is stored locally in the browser
 - Uses free models via OpenRouter (Llama 2, Mistral, Llama 3) - no credit card needed
+
 
 Enjoy your mental health support companion!

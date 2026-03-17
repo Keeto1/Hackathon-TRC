@@ -49,7 +49,7 @@ export default function MoodTracker({ isOpen, onClose, onSubmit, isLoading = fal
         <DialogHeader>
           <DialogTitle>How are you feeling?</DialogTitle>
           <DialogDescription>
-            Track your mood to help AI Buddy provide better support
+            Track your mood to help Buddy provide better support
           </DialogDescription>
         </DialogHeader>
 

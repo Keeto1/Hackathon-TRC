@@ -1,7 +1,6 @@
 import { Message } from './types';
 
-// This file routes all AI requests through the Next.js API route so the API key stays on the server.
-// It no longer uses hardcoded / mock responses.
+
 
 export interface AIResponse {
   content?: string;

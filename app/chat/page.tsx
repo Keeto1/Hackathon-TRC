@@ -100,7 +100,7 @@ export default function ChatPage() {
     const trimmedContent = content.trim();
     if (!trimmedContent) return;
 
-    // Add user message and include it in the context sent to the AI
+    // Add user message to conversation
     const userMessage = addMessage(activeConversation.id, 'user', trimmedContent);
     const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
@@ -128,7 +128,7 @@ export default function ChatPage() {
           }
         } else {
           console.warn('Deepseek rename failed', resp.status, resp.statusText);
-          // Keep the default title or fallback to a short prompt snippet.
+          // Fallback to a short prompt snippet if needed.
           const fallbackTitle = getFallbackTitle(trimmedContent);
           updateConversation(activeConversation.id, fallbackTitle);
           setActiveConversation((prev) => (prev ? { ...prev, title: fallbackTitle } : prev));
@@ -166,7 +166,7 @@ export default function ChatPage() {
         );
         setMessages((prev) => [...prev, errorMessage]);
       } else if (typeof response.content === 'string' && response.content.trim().length > 0) {
-        // Split longer AI replies into multiple chunks so it feels more natural.
+        // Split longer replies into multiple chunks for natural feel.
         const splitIntoChunks = (text: string, maxChunks = 3) => {
           const parts = text
             .match(/[^.!?]+[.!?]*\s*/g)
