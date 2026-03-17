@@ -73,7 +73,7 @@ Campus AI Buddy is designed for university students who want:
 
 ## 🌐 Accessibility & Privacy
 
-- Works offline using your browser
+- Works offline for chat history and mood tracking (AI chat and crisis resources require internet)
 - No account or API key required to start using (uses mock responses by default)
 - All user data is stored locally in your browser
 
@@ -90,14 +90,15 @@ MIT License - Free to use for educational purposes.
 
 ## ℹ️ Support Notes
 
-- The app works offline using your browser
+- The app works offline for chat history and mood tracking (AI chat and crisis resources require internet)
 - No API key required to start using (mock responses by default)
 - All user data is stored locally in your browser
 - Free models are used for AI chat (no credit card needed)
 
+
 ## Support Notes
 
-- The app works offline using localStorage
+- The app works offline for chat history and mood tracking (AI chat and crisis resources require internet)
 - No API key required to start using - uses mock responses
 - Add your free OpenRouter API key anytime to switch to real LLM responses
 - All user data is stored locally in the browser
