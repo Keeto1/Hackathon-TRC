@@ -29,9 +29,10 @@ function AvatarImage({
     <AvatarPrimitive.Image
       data-slot="avatar-image"
       className={cn('aspect-square size-full', className)}
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRhhlDJjNModJgBQu5CL5sfWq7hZzENuhMDw&s"
       {...props}
     />
-  )
+  );
 }
 
 function AvatarFallback({
