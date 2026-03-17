@@ -12,6 +12,9 @@ import { getLanguage, setLanguage, t, Language } from '@/lib/i18n';
 import { getCrisisResources } from '@/lib/crisisResources';
 
 export default function SettingsPage() {
+      // ...existing code...
+      // Import InstallPWAButton
+      const InstallPWAButton = require('@/components/ui/InstallPWAButton').default;
     // Export chats handler
     const handleExportChats = () => {
       const conversations = localStorage.getItem('campus_ai_buddy_conversations');
@@ -273,6 +276,9 @@ export default function SettingsPage() {
         >
           Back to Chat
         </Button>
+
+        {/* Install App Button for Phone */}
+        <InstallPWAButton />
 
         {/* Export/Import Chats */}
         <div className="flex gap-2 w-full">
