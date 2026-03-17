@@ -118,8 +118,19 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  html {
+    font-size: var(--font-size-base, 17px);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--background);
+    color: var(--foreground);
   }
   body {
     @apply bg-background text-foreground;
+    font-size: 1rem;
+    min-height: 100vh;
+    font-family: var(--font-sans, 'Geist', 'Geist Fallback', sans-serif);
   }
 }

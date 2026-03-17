@@ -104,7 +104,9 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ content: truncated });
       }
 
-      lastError = { status: response.status, error: data?.error || data };
+      // Log error details for debugging
+      console.error('OpenRouter API error:', response.status, data);
+      lastError = { status: response.status, error: data?.error || data, details: data };
 
       // Retry on rate limiting or transient server errors
       if (response.status === 429 || response.status === 503) {
@@ -120,6 +122,8 @@ export async function POST(req: NextRequest) {
           lastError?.status === 429
             ? 'OpenRouter rate limit reached. Please wait a moment and try again.'
             : 'OpenRouter API error. Please try again later.',
+        status: lastError?.status,
+        details: lastError?.details,
       },
       { status: lastError?.status ?? 500 }
     );

@@ -2,7 +2,7 @@
 
 import { Conversation } from '@/lib/types';
 import { Button } from '@/components/ui/button';
-import { Plus, LogOut, Menu, X } from 'lucide-react';
+import { Plus, LogOut, Menu, X, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 interface ConversationSidebarProps {
@@ -11,6 +11,7 @@ interface ConversationSidebarProps {
   onSelectConversation: (id: string) => void;
   onNewConversation: () => void;
   onLogout: () => void;
+  onDeleteConversation?: (id: string) => void;
   isOpen?: boolean;
   onClose?: () => void;
 }
@@ -21,6 +22,7 @@ export default function ConversationSidebar({
   onSelectConversation,
   onNewConversation,
   onLogout,
+  onDeleteConversation,
   isOpen = true,
   onClose,
 }: ConversationSidebarProps) {
@@ -31,11 +33,26 @@ export default function ConversationSidebar({
       }`}
     >
       {/* Header */}
-      <div className="p-4 border-b border-sidebar-border flex items-center justify-between">
+      <div className="p-4 border-b border-sidebar-border flex items-center justify-between gap-2">
         <h1 className="font-bold text-lg">AI Buddy</h1>
-        <button onClick={onClose} className="md:hidden">
-          <X className="w-5 h-5" />
-        </button>
+        <div className="flex items-center gap-1">
+          {onDeleteConversation && activeConversationId && (
+            <button
+              onClick={() => {
+                if (window.confirm('Delete this conversation?')) {
+                  onDeleteConversation(activeConversationId);
+                }
+              }}
+              className="p-1 rounded hover:bg-destructive/20 text-destructive"
+              title="Delete current chat"
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
+          )}
+          <button onClick={onClose} className="md:hidden">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
       {/* New Chat Button */}

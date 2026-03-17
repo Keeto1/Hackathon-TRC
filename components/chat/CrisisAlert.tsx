@@ -100,8 +100,44 @@ export default function CrisisAlert({ isOpen, onClose, severity, keywords = [] }
             </div>
           )}
 
+          {/* Always show a clear, localized Tunisian crisis message */}
           <div className={`p-3 rounded-lg ${severity === 'high' ? 'bg-red-100 dark:bg-red-900' : 'bg-opacity-50'}`}>
-            <p className="text-sm">
+            <p className="text-sm font-semibold">
+              {/* English */}
+              {language === 'en' && (
+                <>
+                  If you are in Tunisia and need immediate help:
+                  <br />
+                  <strong>Medical Emergency (SAMU):</strong> 15<br />
+                  <strong>Police Emergency:</strong> 197<br />
+                  <strong>General Emergency:</strong> 911<br />
+                  <strong>Tunisia Mental Health Association:</strong> <a href="https://www.unison.org.tn/" target="_blank" rel="noopener noreferrer">unison.org.tn</a>
+                </>
+              )}
+              {/* French */}
+              {language === 'fr' && (
+                <>
+                  Si vous êtes en Tunisie et avez besoin d'aide immédiate :
+                  <br />
+                  <strong>SAMU (Urgences Médicales):</strong> 15<br />
+                  <strong>Police d'Urgence:</strong> 197<br />
+                  <strong>Urgence Générale:</strong> 911<br />
+                  <strong>Association Tunisienne de Santé Mentale:</strong> <a href="https://www.unison.org.tn/" target="_blank" rel="noopener noreferrer">unison.org.tn</a>
+                </>
+              )}
+              {/* Arabic */}
+              {language === 'ar' && (
+                <>
+                  إذا كنت في تونس وتحتاج إلى مساعدة فورية:
+                  <br />
+                  <strong>الإسعاف (SAMU):</strong> 15<br />
+                  <strong>شرطة الطوارئ:</strong> 197<br />
+                  <strong>الطوارئ العامة:</strong> 911<br />
+                  <strong>جمعية الصحة النفسية التونسية:</strong> <a href="https://www.unison.org.tn/" target="_blank" rel="noopener noreferrer">unison.org.tn</a>
+                </>
+              )}
+            </p>
+            <p className="text-sm mt-2">
               {severity === 'high'
                 ? t(language, 'emergencyMessage')
                 : t(language, 'needHelp')}

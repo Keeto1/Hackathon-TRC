@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getCurrentUser, logout as logoutUser } from '@/lib/auth';
@@ -26,6 +27,42 @@ export default function ChatPage() {
     severity: 'low',
     keywords: [],
   });
+
+  function handleDeleteConversation(id: string) {
+    setConversations((prev) => {
+      const updated = prev.filter((c) => c.id !== id);
+      // Remove from localStorage
+      if (typeof window !== 'undefined') {
+        const conversations = localStorage.getItem('campus_ai_buddy_conversations');
+        if (conversations) {
+          const all = JSON.parse(conversations);
+          delete all[id];
+          localStorage.setItem('campus_ai_buddy_conversations', JSON.stringify(all));
+        }
+        // Also remove messages for this conversation
+        const messages = localStorage.getItem('campus_ai_buddy_messages');
+        if (messages) {
+          const allMsgs = JSON.parse(messages);
+          Object.keys(allMsgs).forEach((mid) => {
+            if (allMsgs[mid].conversationId === id) delete allMsgs[mid];
+          });
+          localStorage.setItem('campus_ai_buddy_messages', JSON.stringify(allMsgs));
+        }
+      }
+      // If the deleted conversation was active, switch to another
+      setActiveConversation((prevActive) => {
+        if (!prevActive || prevActive.id !== id) return prevActive;
+        if (updated.length > 0) {
+          setMessages(getMessages(updated[0].id));
+          return updated[0];
+        } else {
+          setMessages([]);
+          return null;
+        }
+      });
+      return updated;
+    });
+  }
 
   // Check auth and load initial data
   useEffect(() => {
@@ -127,7 +164,7 @@ export default function ChatPage() {
           "I apologize, but I had trouble responding. Please try again."
         );
         setMessages((prev) => [...prev, errorMessage]);
-      } else {
+      } else if (typeof response.content === 'string' && response.content.trim().length > 0) {
         // Split longer AI replies into multiple chunks so it feels more natural.
         const splitIntoChunks = (text: string, maxChunks = 3) => {
           const parts = text
@@ -211,6 +248,7 @@ export default function ChatPage() {
           onSelectConversation={handleSelectConversation}
           onNewConversation={handleNewConversation}
           onLogout={handleLogout}
+          onDeleteConversation={handleDeleteConversation}
           isOpen={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
         />

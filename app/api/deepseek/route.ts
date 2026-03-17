@@ -45,7 +45,8 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json().catch(() => null);
     if (!response.ok) {
-      return NextResponse.json({ error: data?.error || 'Deepseek API error' }, { status: response.status });
+      console.error('DeepSeek API error:', response.status, data);
+      return NextResponse.json({ error: data?.error || 'Deepseek API error', status: response.status, details: data }, { status: response.status });
     }
 
     const title = typeof data?.choices?.[0]?.message?.content === 'string' ? data.choices[0].message.content.trim() : '';
